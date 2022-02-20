@@ -1,0 +1,7 @@
+/build/libs/cards-0.0.1-SNAPSHOT.jar
+/build/libs/accounts-0.0.1-SNAPSHOT.jar
+/build/libs/loans-0.0.1-SNAPSHOT.jar
+
+Cards - http://localhost:8010/myCards
+Accounts - http://localhost:8080/myAccount
+loans- http://localhost:8090/myLoans
