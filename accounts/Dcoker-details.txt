@@ -13,3 +13,14 @@ docker run -p 8082:8090 venkat/loans
 Accounts - http://localhost:8080/myAccount
 Cards - http://localhost:8081/myCards
 loans- http://localhost:8082/myLoans
+
+Login to Docker Hub
+- docker login --username=naga7777
+
+Tagging Docker Image:
+- docker tag venkat/loans naga7777/loans
+
+Pushing to docker hub
+- docker push naga7777/loans
+
+docker push naga7777/microservices:tagname
