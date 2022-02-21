@@ -2,6 +2,14 @@
 /build/libs/accounts-0.0.1-SNAPSHOT.jar
 /build/libs/loans-0.0.1-SNAPSHOT.jar
 
-Cards - http://localhost:8010/myCards
+docker run -p 8080:8080 venkat/accounts
+docker run -p 8081:8010 venkat/cards
+docker run -p 8082:8090 venkat/loans
+
+{
+	"customerId": 1
+}
+
 Accounts - http://localhost:8080/myAccount
-loans- http://localhost:8090/myLoans
+Cards - http://localhost:8081/myCards
+loans- http://localhost:8082/myLoans
