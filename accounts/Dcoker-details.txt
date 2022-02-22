@@ -24,3 +24,7 @@ Pushing to docker hub
 - docker push naga7777/loans
 
 docker push naga7777/microservices:tagname
+
+Build Image From SpringBoot:
+---------------------------
+- ./gradlew bootBuildImage --imageName=/myapp
