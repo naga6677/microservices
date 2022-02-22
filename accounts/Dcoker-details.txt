@@ -12,6 +12,7 @@ docker run -p 8082:8090 venkat/loans
 
 Accounts - http://localhost:8080/myAccount
 Cards - http://localhost:8081/myCards
+
 loans- http://localhost:8082/myLoans
 
 Login to Docker Hub
@@ -28,3 +29,4 @@ docker push naga7777/microservices:tagname
 Build Image From SpringBoot:
 ---------------------------
 - ./gradlew bootBuildImage --imageName=/myapp
+loans- http://localhost:8082/myLoans
