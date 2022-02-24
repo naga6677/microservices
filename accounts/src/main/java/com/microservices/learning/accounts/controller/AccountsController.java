@@ -1,5 +1,8 @@
 package com.microservices.learning.accounts.controller;
 
+
+import java.util.List;
+
 import java.util.Properties;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -13,7 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.microservices.learning.accounts.config.AccountsServiceConfig;
 
 import com.microservices.learning.accounts.entity.Accounts;
+import com.microservices.learning.accounts.entity.Cards;
 import com.microservices.learning.accounts.entity.Customer;
+import com.microservices.learning.accounts.entity.CustomerDetails;
+import com.microservices.learning.accounts.entity.Loans;
+import com.microservices.learning.accounts.service.client.CardsFeignClient;
+import com.microservices.learning.accounts.service.client.LoansFeignClient;
 
 @RestController
 public class AccountsController {
@@ -22,6 +30,11 @@ public class AccountsController {
 	@Autowired
 	AccountsServiceConfig accountsConfig;
 
+	@Autowired
+	CardsFeignClient cardsFeignClient;
+
+	@Autowired
+	LoansFeignClient loansFeignClient;
 
 	@PostMapping("/myAccount")
 	public Accounts getAccountDetails(@RequestBody Customer customer) {
@@ -32,7 +45,6 @@ public class AccountsController {
 
 		return tAccounts;
 	}
-
 
 	@GetMapping("/account/properties")
 	public String getPropertyDetails() throws JsonProcessingException {
@@ -49,6 +61,22 @@ public class AccountsController {
 		return jsonStr;
 	}
 
+
+	@PostMapping(value = "/myCustomerDeatils")
+	public CustomerDetails getCustomerDetails(@RequestBody Customer customer) {
+
+		Accounts accounts = getAccountDetails(new Customer());
+		List<Cards> tCards = cardsFeignClient.getCardDetails(new Customer());
+		List<Loans> tLoans = loansFeignClient.getLoanDetails(new Customer());
+
+		CustomerDetails tCustomerDetails = new CustomerDetails();
+		tCustomerDetails.setAccounts(accounts);
+		tCustomerDetails.setCards(tCards);
+		tCustomerDetails.setLoans(tLoans);
+
+		return tCustomerDetails;
+
+	}
 
 
 }
