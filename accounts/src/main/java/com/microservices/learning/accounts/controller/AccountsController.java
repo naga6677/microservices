@@ -1,6 +1,8 @@
 package com.microservices.learning.accounts.controller;
 
+
 import java.util.List;
+
 import java.util.Properties;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -23,6 +25,7 @@ import com.microservices.learning.accounts.service.client.LoansFeignClient;
 
 @RestController
 public class AccountsController {
+
 
 	@Autowired
 	AccountsServiceConfig accountsConfig;
@@ -58,6 +61,7 @@ public class AccountsController {
 		return jsonStr;
 	}
 
+
 	@PostMapping(value = "/myCustomerDeatils")
 	public CustomerDetails getCustomerDetails(@RequestBody Customer customer) {
 
@@ -73,5 +77,6 @@ public class AccountsController {
 		return tCustomerDetails;
 
 	}
+
 
 }
