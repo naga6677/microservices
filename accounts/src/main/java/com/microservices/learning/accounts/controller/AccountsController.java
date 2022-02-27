@@ -1,6 +1,5 @@
 package com.microservices.learning.accounts.controller;
 
-
 import java.util.List;
 
 import java.util.Properties;
@@ -23,9 +22,11 @@ import com.microservices.learning.accounts.entity.Loans;
 import com.microservices.learning.accounts.service.client.CardsFeignClient;
 import com.microservices.learning.accounts.service.client.LoansFeignClient;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
+
 @RestController
 public class AccountsController {
-
 
 	@Autowired
 	AccountsServiceConfig accountsConfig;
@@ -61,8 +62,13 @@ public class AccountsController {
 		return jsonStr;
 	}
 
-
 	@PostMapping(value = "/myCustomerDeatils")
+	@CircuitBreaker(name = "detailsForCustomerSupportApp", fallbackMethod = "returnEmptyResults")
+
+	/*
+	 * @Retry(name = "retryForCustomerDetails", fallbackMethod =
+	 * "returnEmptyResults")
+	 */
 	public CustomerDetails getCustomerDetails(@RequestBody Customer customer) {
 
 		Accounts accounts = getAccountDetails(new Customer());
@@ -78,5 +84,17 @@ public class AccountsController {
 
 	}
 
+	private CustomerDetails returnEmptyResults(Customer customer, Throwable t) {
+
+		Accounts accounts = getAccountDetails(new Customer());
+		List<Loans> tLoans = loansFeignClient.getLoanDetails(new Customer());
+
+		CustomerDetails tCustomerDetails = new CustomerDetails();
+		tCustomerDetails.setAccounts(accounts);
+		tCustomerDetails.setLoans(tLoans);
+
+		return tCustomerDetails;
+
+	}
 
 }

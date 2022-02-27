@@ -31,6 +31,8 @@ public class LoanController {
 
 	@PostMapping("/myLoans")
 	public List<Loans> getLoanDetails(@RequestBody Customer customer) {
+		
+		System.out.println("Calling Test loans service>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 
 		List<Loans> tLoans = new ArrayList<Loans>();
 
